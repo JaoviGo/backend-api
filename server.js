@@ -7,14 +7,16 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
-// ROOT (para probar)
+// TEST
 app.get('/', (req, res) => {
   res.send("Backend activo");
 });
 
-// CHAT (clave)
+// CHAT
 app.post('/chat', (req, res) => {
   const { message } = req.body;
+
+  console.log("Mensaje recibido:", message);
 
   res.json({
     reply: "JaoviGo activo: " + message
