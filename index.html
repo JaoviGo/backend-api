@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JaoviGo | AI Mobility Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;font-family:'Inter',sans-serif;background:#0b1c1f;color:#fff}
+    header{display:flex;justify-content:space-between;padding:20px 40px;background:rgba(0,0,0,0.6)}
+    header h1{color:#00ff9f}
+    nav a{margin:0 15px;color:#fff;text-decoration:none}
+    .hero{display:flex;align-items:center;justify-content:space-between;padding:60px 40px}
+    .hero-text{max-width:50%}
+    .hero h2{font-size:48px;color:#00ff9f}
+    .btn{padding:15px 25px;margin:10px;background:#00ff9f;border:none;border-radius:8px;cursor:pointer}
+    .section{padding:60px 40px;text-align:center}
+    .cards{display:flex;justify-content:space-around;gap:20px}
+    .card{background:#132f34;padding:20px;border-radius:12px;width:30%}
+    footer{padding:20px;text-align:center;background:#000}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JaoviGo</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Model</a>
+      <a href="#">Vision</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>AI-Powered Urban Mobility Network</h2>
+      <p>Delivery, ride-hailing and electric mobility integrated in one platform.</p>
+      <button class="btn">Become a Rider</button>
+      <button class="btn">Partner / Invest</button>
+    </div>
+    <img src="https://images.unsplash.com/photo-1549924231-f129b911e442" width="400"/>
+  </section>
+
+  <section class="section">
+    <h2>Market Opportunity</h2>
+    <div class="cards">
+      <div class="card"><h3>$3.7T</h3><p>Mobility Market</p></div>
+      <div class="card"><h3>500M+</h3><p>Urban Users</p></div>
+      <div class="card"><h3>100K+</h3><p>Daily Rides Potential</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Platform</h2>
+    <div class="cards">
+      <div class="card">Ride-Hailing</div>
+      <div class="card">Scooter Rentals</div>
+      <div class="card">AI Assistant</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Join JaoviGo</h2>
+    <input placeholder="Name"/><br><br>
+    <input placeholder="Phone"/><br><br>
+    <button class="btn" onclick="sendLead()">Apply</button>
+  </section>
+
+  <footer>
+    <p>JaoviGo © 2026</p>
+  </footer>
+
+  <script>
+    async function sendLead(){
+      const name=document.querySelectorAll('input')[0].value;
+      const phone=document.querySelectorAll('input')[1].value;
+
+      await fetch('https://backend-api-s6ll.onrender.com/lead',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,phone})
+      });
+
+      alert('Application sent');
+    }
+  </script>
+</body>
+</html>
