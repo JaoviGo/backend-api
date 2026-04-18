@@ -26,4 +26,3 @@ app.post('/lead', (req, res) => {
 app.listen(PORT, () => {
   console.log("Servidor corriendo en puerto " + PORT);
 });
-
