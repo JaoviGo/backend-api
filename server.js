@@ -11,8 +11,42 @@ app.get('/', (req, res) => {
   res.send("Backend activo");
 });
 
-app.post('/chat', (req, res) => {
+app.post('/chat', async (req, res) => {
   const { message } = req.body;
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content: "Eres el asistente oficial de JaoviGo. Explica el proyecto, capta riders y potenciales inversionistas de forma clara y directa."
+          },
+          {
+            role: "user",
+            content: message
+          }
+        ]
+      })
+    });
+
+    const data = await response.json();
+
+    res.json({
+      reply: data.choices[0].message.content
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ reply: "Error en IA" });
+  }
+});
 
   res.json({
     reply: "JaoviGo activo: " + message
