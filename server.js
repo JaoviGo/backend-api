@@ -7,10 +7,12 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
+// TEST
 app.get('/', (req, res) => {
   res.send("Backend activo");
 });
 
+// CHAT IA
 app.post('/chat', async (req, res) => {
   const { message } = req.body;
 
@@ -26,7 +28,7 @@ app.post('/chat', async (req, res) => {
         messages: [
           {
             role: "system",
-            content: "Eres el asistente oficial de JaoviGo. Explica el proyecto, capta riders y potenciales inversionistas de forma clara y directa."
+            content: "Eres el asistente de JaoviGo. Explica el proyecto y ayuda a captar riders e inversionistas."
           },
           {
             role: "user",
@@ -39,7 +41,7 @@ app.post('/chat', async (req, res) => {
     const data = await response.json();
 
     res.json({
-      reply: data.choices[0].message.content
+      reply: data.choices?.[0]?.message?.content || "Sin respuesta"
     });
 
   } catch (error) {
@@ -48,12 +50,9 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-  res.json({
-    reply: "JaoviGo activo: " + message
-  });
-});
-
+// LEADS
 app.post('/lead', (req, res) => {
+  console.log("Nuevo lead:", req.body);
   res.json({ status: "ok" });
 });
 
