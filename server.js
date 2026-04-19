@@ -28,7 +28,7 @@ app.post('/chat', async (req, res) => {
         messages: [
           {
             role: "system",
-            content: "Eres el asistente de JaoviGo. Explica el proyecto y ayuda a captar riders e inversionistas."
+            content: "Eres el asistente de JaoviGo. Explica la plataforma y capta riders e inversionistas."
           },
           {
             role: "user",
@@ -40,13 +40,33 @@ app.post('/chat', async (req, res) => {
 
     const data = await response.json();
 
+    // 🔥 VER ERROR REAL EN LOGS
+    console.log("OPENAI RESPONSE:", JSON.stringify(data, null, 2));
+
+    // ❌ SI OPENAI FALLA
+    if (data.error) {
+      return res.json({
+        reply: "Error IA: " + data.error.message
+      });
+    }
+
+    // ❌ SI NO HAY RESPUESTA
+    if (!data.choices || !data.choices.length) {
+      return res.json({
+        reply: "IA no respondió"
+      });
+    }
+
+    // ✅ RESPUESTA OK
     res.json({
-      reply: data.choices?.[0]?.message?.content || "Sin respuesta"
+      reply: data.choices[0].message.content
     });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ reply: "Error en IA" });
+    console.error("SERVER ERROR:", error);
+    res.json({
+      reply: "Error conexión IA"
+    });
   }
 });
 
